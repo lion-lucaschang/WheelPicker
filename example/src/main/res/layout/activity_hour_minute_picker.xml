@@ -42,6 +42,6 @@
         <sh.tyy.wheelpicker.HourMinutePickerView
             android:id="@+id/hour_minute_picker_view"
             android:layout_width="310dp"
-            android:layout_height="210dp" />
+            android:layout_height="250dp" />
     </FrameLayout>
 </LinearLayout>

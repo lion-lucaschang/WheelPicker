@@ -12,6 +12,7 @@ import android.view.ViewTreeObserver
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
+import sh.tyy.wheelpicker.R
 import kotlin.math.PI
 import kotlin.math.abs
 import kotlin.math.cos
@@ -235,15 +236,15 @@ class WheelPickerRecyclerView @JvmOverloads constructor(
         val centerY = (height - paddingBottom - paddingTop) / 2
         val childCenterY = child.top + child.height / 2F
         val factor = (centerY - childCenterY) * 1f / centerY
-        val alphaFactor = 1 - 0.7f * abs(factor)
+        val alphaFactor = 1 - 0.5f * abs(factor)
         child.alpha = alphaFactor * alphaFactor * alphaFactor
-        val scaleFactor = 1 - 0.3f * abs(factor)
+        val scaleFactor = 1 - 0.1f * abs(factor)
         child.scaleX = scaleFactor
         child.scaleY = scaleFactor
 
-        val rotateRadius: Float = (2.0F * centerY / PI).toFloat()
+        val rotateRadius: Float = (50.0F * centerY / PI).toFloat()
         val rad = (centerY - childCenterY) * 1f / rotateRadius
-        val offsetY = centerY - childCenterY - rotateRadius * sin(rad) * 1.3F
+        val offsetY = centerY - childCenterY - rotateRadius * sin(rad) * 1.0F
         child.translationY = offsetY
 
         canvas.save()

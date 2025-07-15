@@ -42,6 +42,6 @@
         <sh.tyy.wheelpicker.AmPmTimePickerView
             android:id="@+id/am_pm_time_picker_view"
             android:layout_width="310dp"
-            android:layout_height="210dp" />
+            android:layout_height="250dp" />
     </FrameLayout>
 </LinearLayout>
