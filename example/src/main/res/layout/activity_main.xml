@@ -38,6 +38,12 @@
             android:layout_height="wrap_content"
             android:text="Custom Picker" />
 
+        <Button
+            android:id="@+id/am_pm_time_picker_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AM/PM Time Picker" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"

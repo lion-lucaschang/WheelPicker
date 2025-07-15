@@ -67,6 +67,12 @@ class MainActivity : AppCompatActivity(), PickerExample {
             val intent = Intent(this, DatePickerExampleActivity::class.java)
             startActivity(intent)
         }
+
+        val amPmTimePickerButton: Button = findViewById(R.id.am_pm_time_picker_button)
+        amPmTimePickerButton.setOnClickListener {
+            val intent = Intent(this, AmPmTimePickerExampleActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     @SuppressLint("SetTextI18n")
