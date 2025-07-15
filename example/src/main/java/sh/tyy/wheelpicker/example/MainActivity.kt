@@ -73,6 +73,12 @@ class MainActivity : AppCompatActivity(), PickerExample {
             val intent = Intent(this, AmPmTimePickerExampleActivity::class.java)
             startActivity(intent)
         }
+
+        val hourMinutePickerButton: Button = findViewById(R.id.hour_minute_picker_button)
+        hourMinutePickerButton.setOnClickListener {
+            val intent = Intent(this, HourMinutePickerExampleActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     @SuppressLint("SetTextI18n")
