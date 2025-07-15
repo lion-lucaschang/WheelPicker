@@ -238,12 +238,12 @@ class DatePickerView @JvmOverloads constructor(
         monthAdapter.values = (0 until 12).map {
             TextWheelPickerView.Item(
                 "$it",
-                DateFormatSymbols.getInstance().shortMonths[it]
+                String.format(Locale.US, "%02d", it + 1)
             )
         }
         yearPickerView = binding.leftPicker
         yearPickerView.setAdapter(yearAdapter)
-        addView(highlightView)
+        addView(highlightView, 0)
         (highlightView.layoutParams as? LayoutParams)?.apply {
             width = ViewGroup.LayoutParams.MATCH_PARENT
             height =
@@ -276,7 +276,7 @@ class DatePickerView @JvmOverloads constructor(
             val day = it + 1
             TextWheelPickerView.Item(
                 "$day",
-                context.getString(R.string.day_time_picker_format_day, day)
+                String.format(Locale.US, "%02d", day)
             )
         }
         dayPickerView.post {
