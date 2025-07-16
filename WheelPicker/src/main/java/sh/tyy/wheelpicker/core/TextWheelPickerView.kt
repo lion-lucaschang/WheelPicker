@@ -13,7 +13,7 @@ class TextWheelViewHolder(private val textView: TextView) :
         textView.text = data.text
         textView.isEnabled = data.isEnabled
 
-        val adapter = bindingAdapter as? TextWheelAdapter
+        val adapter = bindingAdapter as? BaseWheelPickerView.Adapter<*, *>
         val selectedIndex = adapter?.selectedIndex ?: -1
         textView.setTextColor(
             if (bindingAdapterPosition == selectedIndex) {
@@ -27,8 +27,6 @@ class TextWheelViewHolder(private val textView: TextView) :
 
 class TextWheelAdapter :
     BaseWheelPickerView.Adapter<TextWheelPickerView.Item, TextWheelViewHolder>() {
-
-    var selectedIndex: Int = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TextWheelViewHolder {
         val view =

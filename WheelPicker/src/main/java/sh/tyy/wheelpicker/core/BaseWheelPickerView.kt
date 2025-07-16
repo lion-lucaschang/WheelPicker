@@ -31,6 +31,7 @@ abstract class BaseWheelPickerView @JvmOverloads constructor(
 
     abstract class Adapter<Element : Any, ViewHolder : BaseWheelPickerView.ViewHolder<Element>> :
         RecyclerView.Adapter<ViewHolder>(), AdapterImp {
+        var selectedIndex: Int = 0
         open var values: List<Element> = emptyList()
             set(value) {
                 field = value
@@ -64,10 +65,8 @@ abstract class BaseWheelPickerView @JvmOverloads constructor(
         set(value) {
             setSelectedIndex(value, false)
             (recyclerView.adapter as? Adapter<*, *>)?.let {
-                if (it is TextWheelAdapter) {
-                    it.selectedIndex = value
-                    it.notifyDataSetChanged()
-                }
+                it.selectedIndex = value
+                it.notifyDataSetChanged()
             }
         }
         get() {
@@ -165,7 +164,7 @@ abstract class BaseWheelPickerView @JvmOverloads constructor(
     // region WheelPickerRecyclerView.WheelPickerRecyclerViewListener
     override fun didSelectItem(position: Int) {
         listener?.didSelectItem(this, selectedIndex)
-        (recyclerView.adapter as? TextWheelAdapter)?.let {
+        (recyclerView.adapter as? Adapter<*, *>)?.let {
             it.selectedIndex = selectedIndex
             it.notifyDataSetChanged()
         }
