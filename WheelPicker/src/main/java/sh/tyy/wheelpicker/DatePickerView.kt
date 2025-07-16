@@ -17,8 +17,7 @@ import java.util.*
 
 class YearWheelAdapter(
     valueEnabledProvider: WeakReference<ValueEnabledProvider>
-) :
-    ItemEnableWheelAdapter(valueEnabledProvider) {
+) : ItemEnableWheelAdapter(valueEnabledProvider) {
     override fun getItemCount(): Int {
         return Int.MAX_VALUE
     }

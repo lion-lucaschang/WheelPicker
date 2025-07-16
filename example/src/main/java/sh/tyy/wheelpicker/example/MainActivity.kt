@@ -85,5 +85,10 @@ class MainActivity : AppCompatActivity(), PickerExample {
     fun updateSelectedText(selectedIndex: Int) {
         val text = simpleAdapter.values.getOrNull(selectedIndex)
         selectedItemTextView.text = "Selected: $text"
+        val ymdTimePickerButton: Button = findViewById(R.id.ymd_time_picker_button)
+        ymdTimePickerButton.setOnClickListener {
+            val intent = Intent(this, YmdTimePickerExampleActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

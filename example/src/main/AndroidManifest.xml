@@ -24,6 +24,7 @@
         <activity android:name=".CustomWheelPickerExampleActivity" />
         <activity android:name=".AmPmTimePickerExampleActivity" />
         <activity android:name=".HourMinutePickerExampleActivity" />
+        <activity android:name=".YmdTimePickerExampleActivity" />
     </application>
 
 </manifest>
