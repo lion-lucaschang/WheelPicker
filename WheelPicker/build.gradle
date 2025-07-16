@@ -11,7 +11,7 @@ def libraryVersionCode = 10
 def libraryVersion = '0.4.0'
 
 android {
-    compileSdk 30
+    compileSdk 33
     buildToolsVersion "30.0.3"
 
     viewBinding {
