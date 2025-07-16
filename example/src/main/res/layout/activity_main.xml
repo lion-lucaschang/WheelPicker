@@ -30,13 +30,15 @@
             android:id="@+id/weekday_time_picker_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Weekday Time Picker" />
+            android:text="Weekday Time Picker"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/custom_picker_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Custom Picker" />
+            android:text="Custom Picker"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/am_pm_time_picker_button"
