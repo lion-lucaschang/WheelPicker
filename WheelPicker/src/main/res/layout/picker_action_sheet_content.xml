@@ -64,9 +64,12 @@
         android:layout_marginTop="12dp"
         android:backgroundTint="#F03742"
         android:gravity="center"
+        android:minHeight="48dp"
         android:text="@android:string/ok"
-        android:textColor="@android:color/white"
+        android:textColor="@color/btn_text_color_selector"
         android:textSize="18sp"
+        android:textStyle="bold"
+        app:cornerRadius="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/divider2" />
 </androidx.constraintlayout.widget.ConstraintLayout>
