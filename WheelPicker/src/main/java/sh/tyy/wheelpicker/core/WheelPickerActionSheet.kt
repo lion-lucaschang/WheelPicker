@@ -18,12 +18,15 @@ abstract class WheelPickerActionSheet<Picker : View>(context: Context) {
     protected val contentBinding: PickerActionSheetContentBinding =
         PickerActionSheetContentBinding.inflate(LayoutInflater.from(context), null, false)
 
+    private var dismissListener: PopupWindow.OnDismissListener? = null
+
     fun setOnClickOkButtonListener(listener: View.OnClickListener) {
         contentBinding.okButton.setOnClickListener(listener)
     }
 
     fun setOnDismissListener(listener: PopupWindow.OnDismissListener) {
         popupWindow.setOnDismissListener(listener)
+        dismissListener = listener
     }
 
     init {
@@ -35,6 +38,11 @@ abstract class WheelPickerActionSheet<Picker : View>(context: Context) {
         )
         popupWindow.animationStyle = R.style.WheelSheetTranslate
         popupWindow.setBackgroundDrawable(BitmapDrawable())
+
+        contentBinding.close.setOnClickListener {
+            popupWindow.dismiss()
+            dismissListener?.onDismiss()
+        }
     }
 
     protected fun setPickerView(pickerView: Picker) {
