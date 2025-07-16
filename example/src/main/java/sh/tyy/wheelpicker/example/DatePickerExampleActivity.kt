@@ -14,6 +14,7 @@ import sh.tyy.wheelpicker.DatePicker
 import sh.tyy.wheelpicker.DatePickerView
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.max
 
 class DatePickerExampleActivity : AppCompatActivity(), PickerExample {
 
@@ -167,11 +168,12 @@ class DatePickerExampleActivity : AppCompatActivity(), PickerExample {
 
     private fun showPicker(minDate: Date? = null, maxDate: Date? = null, completion: (year: Int, month: Int, day: Int) -> Unit) {
         val picker = DatePicker(this)
+        picker.title = "請選擇日期"
         picker.show(window)
         picker.pickerView?.mode = datePickerView.mode
         picker.pickerView?.apply {
             this.minDate = minDate
-            this.maxDate = minDate
+            this.maxDate = maxDate
             post {
                 setDate(datePickerView.year, datePickerView.month, datePickerView.day)
             }

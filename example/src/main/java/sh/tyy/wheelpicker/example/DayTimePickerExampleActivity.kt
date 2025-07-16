@@ -55,6 +55,7 @@ class DayTimePickerExampleActivity : AppCompatActivity(), PickerExample {
         val actionSheetButton: Button = findViewById(R.id.action_sheet_button)
         actionSheetButton.setOnClickListener {
             val picker = DayTimePicker(this)
+            picker.title = "請選擇日期與時間"
             picker.show(window)
             picker.pickerView?.day = dayTimePickerView.day
             picker.pickerView?.hour = dayTimePickerView.hour

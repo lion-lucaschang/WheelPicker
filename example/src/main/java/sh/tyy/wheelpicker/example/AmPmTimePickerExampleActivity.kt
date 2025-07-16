@@ -56,6 +56,7 @@ class AmPmTimePickerExampleActivity : AppCompatActivity(), PickerExample {
         val actionSheetButton: Button = findViewById(R.id.action_sheet_button)
         actionSheetButton.setOnClickListener {
             val picker = AmPmTimePicker(this)
+            picker.title = "請選擇上午/下午、時、分"
             picker.show(window)
             picker.pickerView?.hour = amPmTimePickerView.hour
             picker.pickerView?.minute = amPmTimePickerView.minute

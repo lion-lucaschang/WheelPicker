@@ -55,6 +55,7 @@ class HourMinutePickerExampleActivity : AppCompatActivity(), PickerExample {
         val actionSheetButton: Button = findViewById(R.id.action_sheet_button)
         actionSheetButton.setOnClickListener {
             val picker = HourMinutePicker(this)
+            picker.title = "請選擇時、分"
             picker.show(window)
             picker.pickerView?.hour = hourMinutePickerView.hour
             picker.pickerView?.minute = hourMinutePickerView.minute

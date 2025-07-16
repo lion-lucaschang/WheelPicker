@@ -11,6 +11,9 @@ import sh.tyy.wheelpicker.databinding.PickerActionSheetContentBinding
 abstract class WheelPickerActionSheet<Picker : View>(context: Context) {
     var pickerView: Picker? = null
         private set
+
+    var title: String = ""
+
     protected val popupWindow: PopupWindow
     protected val contentBinding: PickerActionSheetContentBinding =
         PickerActionSheetContentBinding.inflate(LayoutInflater.from(context), null, false)
@@ -60,6 +63,8 @@ abstract class WheelPickerActionSheet<Picker : View>(context: Context) {
                 }
             }
         }
+
+        contentBinding.title.text = title
     }
 
     fun hide() {

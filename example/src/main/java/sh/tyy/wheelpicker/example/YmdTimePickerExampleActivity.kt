@@ -55,6 +55,7 @@ class YmdTimePickerExampleActivity : AppCompatActivity(), PickerExample {
         val actionSheetButton: Button = findViewById(R.id.action_sheet_button)
         actionSheetButton.setOnClickListener {
             val picker = YmdTimePicker(this)
+            picker.title = "請選擇日期、時、分"
             picker.show(window)
             picker.pickerView?.date = ymdTimePickerView.date
             picker.pickerView?.hour = ymdTimePickerView.hour
