@@ -79,19 +79,18 @@ class DayTimePickerView @JvmOverloads constructor(
         dayPickerView = binding.leftPicker
         dayPickerView.setAdapter(dayAdapter)
         dayAdapter.values = (1..31).map {
-            TextWheelPickerView.Item(
-                "$it",
-                context.getString(R.string.day_time_picker_format_day, it)
-            )
+            TextWheelPickerView.Item("$it", it.toString().format("%2d"))
         }
         hourPickerView = binding.midPicker
         hourPickerView.setAdapter(hourAdapter)
-        hourAdapter.values = (0 until 24).map { TextWheelPickerView.Item("$it", "$it") }
+        hourAdapter.values = (0 until 24).map {
+            TextWheelPickerView.Item("$it", it.toString().format("%2d"))
+        }
 
         minutePickerView = binding.rightPicker
         minutePickerView.setAdapter(minuteAdapter)
         minuteAdapter.values =
-            (0 until 60).map { TextWheelPickerView.Item("$it", "$it") }
+            (0 until 60).map { TextWheelPickerView.Item("$it", it.toString().format("%2d")) }
         addView(highlightView, 0)
         (highlightView.layoutParams as? LayoutParams)?.apply {
             width = ViewGroup.LayoutParams.MATCH_PARENT
