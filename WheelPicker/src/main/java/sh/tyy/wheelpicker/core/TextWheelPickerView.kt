@@ -12,11 +12,24 @@ class TextWheelViewHolder(private val textView: TextView) :
     override fun onBindData(data: TextWheelPickerView.Item) {
         textView.text = data.text
         textView.isEnabled = data.isEnabled
+
+        val adapter = bindingAdapter as? TextWheelAdapter
+        val selectedIndex = adapter?.selectedIndex ?: -1
+        textView.setTextColor(
+            if (bindingAdapterPosition == selectedIndex) {
+                ContextCompat.getColor(textView.context, R.color.text_wheel_text_highlight_color)
+            } else {
+                ContextCompat.getColor(textView.context, R.color.text_wheel_text_color)
+            }
+        )
     }
 }
 
 class TextWheelAdapter :
     BaseWheelPickerView.Adapter<TextWheelPickerView.Item, TextWheelViewHolder>() {
+
+    var selectedIndex: Int = 0
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TextWheelViewHolder {
         val view =
             LayoutInflater.from(parent.context)

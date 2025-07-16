@@ -63,6 +63,12 @@ abstract class BaseWheelPickerView @JvmOverloads constructor(
     var selectedIndex: Int
         set(value) {
             setSelectedIndex(value, false)
+            (recyclerView.adapter as? Adapter<*, *>)?.let {
+                if (it is TextWheelAdapter) {
+                    it.selectedIndex = value
+                    it.notifyDataSetChanged()
+                }
+            }
         }
         get() {
             val position = recyclerView.currentPosition
@@ -159,6 +165,10 @@ abstract class BaseWheelPickerView @JvmOverloads constructor(
     // region WheelPickerRecyclerView.WheelPickerRecyclerViewListener
     override fun didSelectItem(position: Int) {
         listener?.didSelectItem(this, selectedIndex)
+        (recyclerView.adapter as? TextWheelAdapter)?.let {
+            it.selectedIndex = selectedIndex
+            it.notifyDataSetChanged()
+        }
     }
     // enregion
 }
