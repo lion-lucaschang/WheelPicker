@@ -311,9 +311,7 @@ class DatePickerView @JvmOverloads constructor(
                 String.format(Locale.US, "%02d", day)
             )
         }
-        dayPickerView.post {
-            dayPickerView.refreshCurrentPosition()
-        }
+        dayPickerView.refreshCurrentPosition()
         return true
     }
 
