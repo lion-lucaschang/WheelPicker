@@ -115,7 +115,7 @@ class YmdTimePickerView @JvmOverloads constructor(
 
         hourPickerView = binding.midPicker
         hourPickerView.setAdapter(hourAdapter)
-        hourAdapter.values = (1..12).map {
+        hourAdapter.values = (1..24).map {
             TextWheelPickerView.Item(
                 "$it",
                 String.format(Locale.US, "%02d", it)
