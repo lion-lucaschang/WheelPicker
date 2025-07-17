@@ -3,11 +3,16 @@ package sh.tyy.wheelpicker
 import android.content.Context
 import android.text.SpannableString
 import android.util.AttributeSet
+import android.util.Log
 import android.view.*
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.NO_POSITION
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import sh.tyy.wheelpicker.core.*
 import sh.tyy.wheelpicker.databinding.TriplePickerViewBinding
 import java.lang.ref.WeakReference
@@ -307,7 +312,9 @@ class DatePickerView @JvmOverloads constructor(
                 String.format(Locale.US, "%02d", day)
             )
         }
-        dayPickerView.refreshCurrentPosition()
+        dayPickerView.post {
+            dayPickerView.refreshCurrentPosition()
+        }
         return true
     }
 

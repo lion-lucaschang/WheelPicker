@@ -54,7 +54,8 @@ class WheelPickerRecyclerView @JvmOverloads constructor(
             }
             field = value
             if (scrollState == SCROLL_STATE_IDLE) {
-                listener?.didSelectItem(value)
+                if (value >= 0)
+                    listener?.didSelectItem(value)
             }
         }
 

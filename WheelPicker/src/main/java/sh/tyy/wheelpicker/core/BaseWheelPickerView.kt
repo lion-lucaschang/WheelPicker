@@ -31,7 +31,9 @@ abstract class BaseWheelPickerView @JvmOverloads constructor(
 
     abstract class Adapter<Element : Any, ViewHolder : BaseWheelPickerView.ViewHolder<Element>> :
         RecyclerView.Adapter<ViewHolder>(), AdapterImp {
-        var selectedIndex: Int = 0
+
+        var highlightIndex: Int = 0
+
         open var values: List<Element> = emptyList()
             set(value) {
                 field = value
@@ -64,10 +66,7 @@ abstract class BaseWheelPickerView @JvmOverloads constructor(
     var selectedIndex: Int
         set(value) {
             setSelectedIndex(value, false)
-            (recyclerView.adapter as? Adapter<*, *>)?.let {
-                it.selectedIndex = value
-                it.notifyDataSetChanged()
-            }
+            updateSelectedFontColor(value)
         }
         get() {
             val position = recyclerView.currentPosition
@@ -85,6 +84,9 @@ abstract class BaseWheelPickerView @JvmOverloads constructor(
         } else {
             index
         }
+
+        updateSelectedFontColor(index)
+
         if (animated) {
             recyclerView.smoothScrollToCenterPosition(
                 dstPosition,
@@ -164,9 +166,13 @@ abstract class BaseWheelPickerView @JvmOverloads constructor(
     // region WheelPickerRecyclerView.WheelPickerRecyclerViewListener
     override fun didSelectItem(position: Int) {
         listener?.didSelectItem(this, selectedIndex)
-        (recyclerView.adapter as? Adapter<*, *>)?.let {
-            it.selectedIndex = selectedIndex
-            it.notifyDataSetChanged()
+        updateSelectedFontColor(selectedIndex)
+    }
+
+    private fun updateSelectedFontColor(selectedIndex: Int) {
+        (recyclerView.adapter as? Adapter<*, *>)?.apply {
+            this.highlightIndex = selectedIndex
+            this.notifyDataSetChanged()
         }
     }
     // enregion

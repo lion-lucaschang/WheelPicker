@@ -14,7 +14,7 @@ class TextWheelViewHolder(private val textView: TextView) :
         textView.isEnabled = data.isEnabled
 
         val adapter = bindingAdapter as? BaseWheelPickerView.Adapter<*, *>
-        val selectedIndex = adapter?.selectedIndex ?: -1
+        val selectedIndex = adapter?.highlightIndex ?: -1
         textView.setTextColor(
             if (bindingAdapterPosition == selectedIndex) {
                 ContextCompat.getColor(textView.context, R.color.text_wheel_text_highlight_color)
