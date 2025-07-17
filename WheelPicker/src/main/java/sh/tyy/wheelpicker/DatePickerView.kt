@@ -15,11 +15,25 @@ import java.util.*
 
 class YearWheelAdapter(
     valueEnabledProvider: WeakReference<ValueEnabledProvider>,
-    private val minYear: Int = 1900,
-    private val maxYear: Int = 2030
+    minYear: Int = 1900,
+    maxYear: Int = Calendar.getInstance().get(Calendar.YEAR) + 100
 ) : ItemEnableWheelAdapter(valueEnabledProvider) {
 
-    private val yearRange = minYear..maxYear
+    internal var minYear: Int = 0
+    internal var maxYear: Int = 0
+    private var yearRange = minYear..maxYear
+
+    init {
+        this.minYear = minYear
+        this.maxYear = maxYear
+        this.yearRange = minYear..maxYear
+    }
+
+    fun setRange(minYear: Int, maxYear: Int) {
+        this.minYear = minYear
+        this.maxYear = maxYear
+        yearRange = minYear..maxYear
+    }
 
     override fun getItemCount(): Int {
         return yearRange.count()
@@ -146,6 +160,8 @@ class DatePickerView @JvmOverloads constructor(
             field = newValue
             newValue?.let {
                 minDateCalendar.time = it
+                yearAdapter.setRange(minDateCalendar.get(Calendar.YEAR), yearAdapter.maxYear)
+                yearAdapter.notifyDataSetChanged()
             }
             val newData = minData()
             minData()?.let {
@@ -165,6 +181,8 @@ class DatePickerView @JvmOverloads constructor(
             field = newValue
             newValue?.let {
                 maxDateCalendar.time = it
+                yearAdapter.setRange(yearAdapter.minYear, maxDateCalendar.get(Calendar.YEAR))
+                yearAdapter.notifyDataSetChanged()
             }
             val newData = maxData()
             maxData()?.let {
@@ -198,7 +216,7 @@ class DatePickerView @JvmOverloads constructor(
             yearPickerView.isCircular = value
         }
 
-    private val yearAdapter = YearWheelAdapter(WeakReference(this), 1900, 2030)
+    private val yearAdapter = YearWheelAdapter(WeakReference(this))
     private val monthAdapter = ItemEnableWheelAdapter(WeakReference(this))
     private val dayAdapter = ItemEnableWheelAdapter(WeakReference(this))
 
@@ -210,7 +228,11 @@ class DatePickerView @JvmOverloads constructor(
             completion?.invoke()
             return
         }
-        yearPickerView.setSelectedIndex((yearAdapter as YearWheelAdapter).positionForYear(value), animated, completion)
+        yearPickerView.setSelectedIndex(
+            (yearAdapter as YearWheelAdapter).positionForYear(value),
+            animated,
+            completion
+        )
     }
 
     override fun setSecond(value: Int, animated: Boolean, completion: (() -> Unit)?) {
