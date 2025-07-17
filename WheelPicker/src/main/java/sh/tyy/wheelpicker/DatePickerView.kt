@@ -168,7 +168,6 @@ class DatePickerView @JvmOverloads constructor(
                 updateCurrentDataByMinData(it, false)
             }
             reloadPickersIfNeeded(oldData, newData)
-            notifyIfValid()
         }
 
     var maxDate: Date? = null
@@ -190,7 +189,6 @@ class DatePickerView @JvmOverloads constructor(
                 updateCurrentDataByMaxData(it, false)
             }
             reloadPickersIfNeeded(oldData, newData)
-            notifyIfValid()
         }
 
     val day: Int
@@ -205,9 +203,7 @@ class DatePickerView @JvmOverloads constructor(
     fun setDate(year: Int, month: Int, day: Int) {
         setFirst(year, false) {
             setSecond(month, false) {
-                setThird(day, false) {
-                    notifyIfValid()
-                }
+                setThird(day, false, null)
             }
         }
     }
