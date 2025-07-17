@@ -168,6 +168,7 @@ class DatePickerView @JvmOverloads constructor(
                 updateCurrentDataByMinData(it, false)
             }
             reloadPickersIfNeeded(oldData, newData)
+            notifyIfValid()
         }
 
     var maxDate: Date? = null
@@ -189,6 +190,7 @@ class DatePickerView @JvmOverloads constructor(
                 updateCurrentDataByMaxData(it, false)
             }
             reloadPickersIfNeeded(oldData, newData)
+            notifyIfValid()
         }
 
     val day: Int
@@ -203,7 +205,9 @@ class DatePickerView @JvmOverloads constructor(
     fun setDate(year: Int, month: Int, day: Int) {
         setFirst(year, false) {
             setSecond(month, false) {
-                setThird(day, false, null)
+                setThird(day, false) {
+                    notifyIfValid()
+                }
             }
         }
     }
@@ -332,6 +336,14 @@ class DatePickerView @JvmOverloads constructor(
         return true
     }
 
+    private fun notifyIfValid() {
+        if (dateIsValid(currentData) &&
+            currentData.first > 0 && currentData.second > 0 && currentData.third > 0
+        ) {
+            listener?.didSelectData(year, month, day)
+        }
+    }
+
     // region BaseWheelPickerView.WheelPickerViewListener
     override fun didSelectItem(picker: BaseWheelPickerView, index: Int) {
         var dayPickerUpdated = false
@@ -348,10 +360,9 @@ class DatePickerView @JvmOverloads constructor(
                 dayAdapter.notifyDataSetChanged()
             }
         }
-        if (!dateIsValid(currentData)) {
+        if (!dateIsValid(currentData))
             return
-        }
-        listener?.didSelectData(year, month, day)
+        notifyIfValid()
     }
 
     override fun onScrollStateChanged(state: Int) {
