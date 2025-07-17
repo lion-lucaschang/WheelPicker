@@ -3,7 +3,6 @@ package sh.tyy.wheelpicker
 import android.content.Context
 import android.text.SpannableString
 import android.util.AttributeSet
-import android.util.Log
 import android.view.*
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -12,37 +11,45 @@ import androidx.recyclerview.widget.RecyclerView.NO_POSITION
 import sh.tyy.wheelpicker.core.*
 import sh.tyy.wheelpicker.databinding.TriplePickerViewBinding
 import java.lang.ref.WeakReference
-import java.text.DateFormatSymbols
 import java.util.*
 
 class YearWheelAdapter(
-    valueEnabledProvider: WeakReference<ValueEnabledProvider>
+    valueEnabledProvider: WeakReference<ValueEnabledProvider>,
+    private val minYear: Int = 1900,
+    private val maxYear: Int = 2030
 ) : ItemEnableWheelAdapter(valueEnabledProvider) {
+
+    private val yearRange = minYear..maxYear
+
     override fun getItemCount(): Int {
-        return Int.MAX_VALUE
+        return yearRange.count()
     }
 
     override val valueCount: Int
-        get() = Int.MAX_VALUE
+        get() = yearRange.count()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TextWheelViewHolder {
-        val view =
-            LayoutInflater.from(parent.context)
-                .inflate(R.layout.wheel_picker_item, parent, false) as TextView
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.wheel_picker_item, parent, false) as TextView
         return TextWheelViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: TextWheelViewHolder, position: Int) {
-        val text = SpannableString("$position")
-        val isEnabled = valueEnabledProvider.get()?.isEnabled(this, position) ?: true
+        val year = minYear + position
+        val text = SpannableString("$year")
+        val isEnabled = valueEnabledProvider.get()?.isEnabled(this, year) ?: true
         holder.onBindData(
             TextWheelPickerView.Item(
-                id = "$position",
+                id = "$year",
                 text = text,
                 isEnabled = isEnabled
             )
         )
     }
+
+    fun yearForPosition(position: Int): Int = minYear + position
+
+    fun positionForYear(year: Int): Int = year - minYear
 }
 
 class DatePickerView @JvmOverloads constructor(
@@ -173,7 +180,7 @@ class DatePickerView @JvmOverloads constructor(
         get() = monthPickerView.selectedIndex
 
     val year: Int
-        get() = yearPickerView.selectedIndex
+        get() = yearAdapter.yearForPosition(yearPickerView.selectedIndex)
 
     fun setDate(year: Int, month: Int, day: Int) {
         setFirst(year, false) {
@@ -191,7 +198,7 @@ class DatePickerView @JvmOverloads constructor(
             yearPickerView.isCircular = value
         }
 
-    private val yearAdapter = YearWheelAdapter(WeakReference(this))
+    private val yearAdapter = YearWheelAdapter(WeakReference(this), 1900, 2030)
     private val monthAdapter = ItemEnableWheelAdapter(WeakReference(this))
     private val dayAdapter = ItemEnableWheelAdapter(WeakReference(this))
 
@@ -203,7 +210,7 @@ class DatePickerView @JvmOverloads constructor(
             completion?.invoke()
             return
         }
-        yearPickerView.setSelectedIndex(value, animated, completion)
+        yearPickerView.setSelectedIndex((yearAdapter as YearWheelAdapter).positionForYear(value), animated, completion)
     }
 
     override fun setSecond(value: Int, animated: Boolean, completion: (() -> Unit)?) {
