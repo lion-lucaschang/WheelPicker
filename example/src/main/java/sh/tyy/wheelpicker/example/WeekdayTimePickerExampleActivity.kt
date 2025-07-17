@@ -77,7 +77,7 @@ class WeekdayTimePickerExampleActivity : AppCompatActivity(), PickerExample {
 
     private fun setupWeekdayTimePicker() {
         calendar.time = Date()
-        if (ConfigurationCompat.getLocales(resources.configuration).get(0).country.equals("CN")) {
+        if (ConfigurationCompat.getLocales(resources.configuration).get(0)?.country.equals("CN")) {
             weekdayTimePickerView.firstDayOfWeek = Calendar.MONDAY
         }
 
